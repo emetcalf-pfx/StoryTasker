@@ -2,5 +2,5 @@ Just a text file to test git hub.
 
 Have users, stories, tasks.
 Users have usernames.
-Stories have story points and user.
-Tasks have description, and hours, and story.
+Stories have title (req), description, story points and user. total hours
+Tasks have title (req), description, hours, user, and story
