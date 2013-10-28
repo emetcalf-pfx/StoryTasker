@@ -1,0 +1,7 @@
+Just a text file to test git hub.
+
+Have users, stories, tasks.
+Users have usernames.
+Stories have story points and users.
+Tasks have descriptions and hours.
+How connect stories and tasks?
