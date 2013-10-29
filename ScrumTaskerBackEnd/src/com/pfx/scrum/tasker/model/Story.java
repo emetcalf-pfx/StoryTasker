@@ -6,7 +6,6 @@ public class Story {
 	private String description;
 	private Integer points;
 	private User user;
-	private Integer hours;
 
 	/**
 	 * Default constructor.
@@ -25,7 +24,6 @@ public class Story {
 		this.description = story.description;
 		this.points = story.points;
 		this.user = story.user;
-		this.hours = story.hours;
 	}
 
 	public Integer getId() {
@@ -68,21 +66,12 @@ public class Story {
 		this.user = user;
 	}
 
-	public Integer getHours() {
-		return hours;
-	}
-
-	public void setHours(Integer hours) {
-		this.hours = hours;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
 				+ ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((hours == null) ? 0 : hours.hashCode());
 		result = prime * result + ((points == null) ? 0 : points.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
@@ -102,11 +91,6 @@ public class Story {
 			if (other.description != null)
 				return false;
 		} else if (!description.equals(other.description))
-			return false;
-		if (hours == null) {
-			if (other.hours != null)
-				return false;
-		} else if (!hours.equals(other.hours))
 			return false;
 		if (points == null) {
 			if (other.points != null)
@@ -129,8 +113,7 @@ public class Story {
 	@Override
 	public String toString() {
 		return "Story [id=" + id + ", title=" + title + ", description="
-				+ description + ", points=" + points + ", user=" + user
-				+ ", hours=" + hours + "]";
+				+ description + ", points=" + points + ", user=" + user + "]";
 	}
 
 }

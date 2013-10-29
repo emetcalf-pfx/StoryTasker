@@ -6,13 +6,13 @@ public class Task {
 	private String description;
 	private Integer hours;
 	private User user;
-	private Story story;
-	
+
 	/**
 	 * Default constructor.
 	 */
-	public Task() {}
-	
+	public Task() {
+	}
+
 	/**
 	 * Copy constructor.
 	 * 
@@ -24,7 +24,6 @@ public class Task {
 		this.description = task.description;
 		this.hours = task.hours;
 		this.user = task.user;
-		this.story = task.story;
 	}
 
 	public Integer getId() {
@@ -67,14 +66,6 @@ public class Task {
 		this.user = user;
 	}
 
-	public Story getStory() {
-		return story;
-	}
-
-	public void setStory(Story story) {
-		this.story = story;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -82,7 +73,6 @@ public class Task {
 		result = prime * result
 				+ ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((hours == null) ? 0 : hours.hashCode());
-		result = prime * result + ((story == null) ? 0 : story.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
@@ -107,11 +97,6 @@ public class Task {
 				return false;
 		} else if (!hours.equals(other.hours))
 			return false;
-		if (story == null) {
-			if (other.story != null)
-				return false;
-		} else if (!story.equals(other.story))
-			return false;
 		if (title == null) {
 			if (other.title != null)
 				return false;
@@ -128,8 +113,7 @@ public class Task {
 	@Override
 	public String toString() {
 		return "Task [id=" + id + ", title=" + title + ", description="
-				+ description + ", hours=" + hours + ", user=" + user
-				+ ", story=" + story + "]";
+				+ description + ", hours=" + hours + ", user=" + user + "]";
 	}
 
 }

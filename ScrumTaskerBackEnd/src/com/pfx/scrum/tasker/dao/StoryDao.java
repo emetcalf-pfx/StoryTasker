@@ -3,6 +3,8 @@ package com.pfx.scrum.tasker.dao;
 import java.util.Set;
 
 import com.pfx.scrum.tasker.model.Story;
+import com.pfx.scrum.tasker.model.Task;
+import com.pfx.scrum.tasker.model.TaskedStory;
 
 public interface StoryDao {
 	
@@ -18,9 +20,9 @@ public interface StoryDao {
 	 * Returns story given id.
 	 * 
 	 * @param id
-	 * @return Story
+	 * @return Tasked story
 	 */
-	Story getStory(int id);
+	TaskedStory getTaskedStory(int id);
 	
 	/**
 	 * Update story to given values.
@@ -32,7 +34,25 @@ public interface StoryDao {
 	/**
 	 * Returns all stories.
 	 * 
-	 * @return Set of stories
+	 * @return Set of tasked stories
 	 */
-	Set<Story> getStories();
+	Set<TaskedStory> getTaskedStories();
+	
+	/**
+	 * Adds task to story
+	 * 
+	 * @param story id
+	 * @param task
+	 * @return Id of created task.
+	 */
+	int addTask(int storyId, Task task);
+	
+	/**
+	 * Updates given task.
+	 * 
+	 * @param story id
+	 * @param task
+	 */
+	void updateTask(int storyId, Task task);
+	
 }
