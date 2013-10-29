@@ -1,7 +1,9 @@
 package com.pfx.scrum.tasker.dao.impl;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -11,9 +13,9 @@ import com.pfx.scrum.tasker.dao.StoryDao;
 import com.pfx.scrum.tasker.model.Story;
 
 public class MemoryStoryDao implements StoryDao {
-	private static AtomicInteger idGenerator = new AtomicInteger();
+	private static AtomicInteger ID_GENERATOR = new AtomicInteger();
 
-	private final Set<Story> stories = new HashSet<Story>();
+	private final Map<Integer, Story> stories = new HashMap<Integer, Story>();
 
 	@Override
 	public int createStory(Story story) {
@@ -21,38 +23,39 @@ public class MemoryStoryDao implements StoryDao {
 			throw new IllegalArgumentException("Story title must be populated.");
 		}
 		Story newStory = new Story(story);
-		newStory.setId(idGenerator.incrementAndGet());
-		stories.add(newStory);
-		return newStory.getId();
+		int id = ID_GENERATOR.incrementAndGet();
+		newStory.setId(id);
+		stories.put(id, newStory);
+		return id;
 	}
 
 	@Override
 	public Story getStory(int id) {
-		for (Story story : stories) {
-			if (story.getId() == id) {
-				return new Story(story);
-			}
-		}
-		throw new IllegalArgumentException(String.format(
-				"Story with id [%d] does not exist.", id));
+		return new Story(getStoryReference(id));
 	}
 
 	@Override
 	public void updateStory(Story story) {
-		if (story.getId() == null) {
-			throw new IllegalArgumentException(String.format(
-					"Story [%s] must have id to update.", story));
-		}
-		stories.add(story);
+		getStoryReference(story.getId());
+		stories.put(story.getId(), story);
 	}
 
 	@Override
 	public Set<Story> getStories() {
 		Set<Story> copyStories = new HashSet<Story>(stories.size());
-		for (Story story : stories) {
+		for (Story story : stories.values()) {
 			copyStories.add(new Story(story));
 		}
 		return Collections.unmodifiableSet(copyStories);
+	}
+
+	private Story getStoryReference(int id) {
+		if (stories.containsKey(id)) {
+			return stories.get(id);
+		} else {
+			throw new IllegalArgumentException(String.format(
+					"Story with id [%d] does not exist.", id));
+		}
 	}
 
 }

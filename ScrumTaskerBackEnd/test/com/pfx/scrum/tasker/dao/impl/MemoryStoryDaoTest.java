@@ -57,8 +57,10 @@ public class MemoryStoryDaoTest {
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
-	public void testUpdateStoryWithNoId() {
-		classUnderTest.updateStory(getValidStory());
+	public void testUpdateStoryWithInvalidId() {
+		Story story = getValidStory();
+		story.setId(0);
+		classUnderTest.updateStory(story);
 	}
 
 	@Test

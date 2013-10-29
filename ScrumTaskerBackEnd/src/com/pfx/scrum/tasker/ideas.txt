@@ -4,3 +4,5 @@ Have users, stories, tasks.
 Users have usernames.
 Stories have title (req), description, story points and user. total hours
 Tasks have title (req), description, hours, user, and story
+
+Make a base Memory class to create/get/update.
