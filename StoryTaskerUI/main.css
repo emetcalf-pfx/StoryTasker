@@ -1,0 +1,83 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	font-size: 80px;
+	background-color: #7EB1FF;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding-left: 0;
+}
+
+ul ul {
+	font-size: 50px;
+}
+
+ul ul ul {
+	font-size: 25px;
+}
+
+li {
+	margin-top: 40px;
+}
+
+li a {
+	text-decoration: none;
+	color: black;
+}
+
+li a {
+	border-radius: 10px;
+	padding: 8px 15px 8px 20px;
+	margin-left: -20px;
+}
+
+.title:hover {
+	cursor: pointer;
+}
+
+/* Entities */
+ul.entities li a {
+	background-color: rgba(100, 100, 202, .5);
+	border: 2px solid rgb(100, 100, 202);
+}
+
+ul.entities li a:hover {
+	margin-left: -15px;
+}
+
+ul.entities li a:hover,ul.entities li.active a {
+	background-color: rgba(100, 100, 202, 1);
+}
+
+/* Users */
+ul.entities ul.users li a {
+	background-color: rgba(255, 204, 102, .5);
+	border: 2px solid rgb(255, 204, 102);
+}
+
+ul.entities ul.users li a:hover {
+	background-color: rgba(255, 204, 102, 1);
+}
+
+/* stories */
+ul.entities ul.stories li a {
+	background-color: rgba(255, 255, 255, .5);
+	border: 2px solid rgb(255, 255, 255)
+}
+
+ul.entities ul.stories li a:hover,ul.entities ul.stories li.active a {
+	background-color: rgba(255, 255, 255, 1);
+}
+
+/* Tasks */
+ul.entities ul.stories ul.tasks li a {
+	background-color: rgba(255, 98, 130, .5);
+	border: 2px solid rgb(255, 98, 130);
+}
+
+ul.entities ul.stories ul.tasks li a:hover {
+	background-color: rgba(255, 98, 130, 1);
+}
