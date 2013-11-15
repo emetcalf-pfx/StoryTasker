@@ -2,8 +2,31 @@ bindList($("ul.entities"));
 $(".title").bind("click", {
 	listItems : $("ul.entities > li")
 }, function(event) {
-	resetListItems(event.data.listItems)
+	resetListItems(event.data.listItems);
 });
+$("li.users > a").bind("click", {
+	listItem : $("li.users")
+}, function(event) {
+	populateUserList();
+});
+
+function populateUserList() {
+	$
+			.ajax({
+				url : "http://localhost:8080/StoryTaskerServer/service/tasker/user/list",
+				dataType : "json",
+				success : function(data, textStatus, jqXHR) {
+					$(data).each(function() {
+						/* TODO: Replace with adding to a template. */ 
+						alert(this.username);
+					});
+				},
+				error : function(jqXHR, textStatus, errorThrown) {
+					/* TODO: Replace with better error. */ 
+					alert("error:" + textStatus + " " + errorThrown);
+				}
+			});
+}
 
 /**
  * Binds listItems to hide/show on click.

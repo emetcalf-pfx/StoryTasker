@@ -1,5 +1,8 @@
 package com.pfx.scrum.tasker.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class User {
 	private String username;
 
