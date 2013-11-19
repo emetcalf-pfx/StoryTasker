@@ -10,10 +10,6 @@
 	<ul class="entities">
 		<li id="1" class="users"><a href="#">users</a>
 			<ul class="users" style="display: none;">
-				<li><a href="#"><span>ccapper</span> </a></li>
-				<li><a href="#"><span>emetcalf</span> </a></li>
-				<li><a href="#"><span>rob</span> </a></li>
-				<li><a href="#"><span>+</span> </a></li>
 			</ul>
 		</li>
 		<li id="2"><a href="#"><span>stories</span> </a>
@@ -31,7 +27,14 @@
 		</li>
 	</ul>
 
+	<script id="user-list-template" type="text/x-handlebars-template">
+		{{#users}}
+		<li><a href="#"><span>{{username}}</span></a></li>
+		{{/users}}
+	</script>
+	
 	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script src="js/handlebars-v1.1.2.js"></script>
 	<script src="js/main.js"></script>
 
 </body>

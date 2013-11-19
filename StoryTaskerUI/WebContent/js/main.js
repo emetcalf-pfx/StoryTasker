@@ -16,10 +16,7 @@ function populateUserList() {
 				url : "http://localhost:8080/StoryTaskerServer/service/tasker/user/list",
 				dataType : "json",
 				success : function(data, textStatus, jqXHR) {
-					$(data).each(function() {
-						/* TODO: Replace with adding to a template. */ 
-						alert(this.username);
-					});
+					displayUsers(data);
 				},
 				error : function(jqXHR, textStatus, errorThrown) {
 					/* TODO: Replace with better error. */ 
@@ -47,6 +44,20 @@ function bindList(list) {
 			bindList($(this).children("ul"));
 		});
 	}
+}
+
+/**
+ * Displays users given template and users.
+ * 
+ * @param users Array of users.
+ */
+function displayUsers(users) {
+	/* TODO: Pre-compile. */
+	var liTemplate = Handlebars.compile($("#user-list-template").html());
+	var liHtml = liTemplate({
+		users : users
+	});
+	$("ul.users").html(liHtml);
 }
 
 /**
