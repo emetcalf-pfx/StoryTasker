@@ -31,6 +31,13 @@
 		{{#users}}
 		<li><a href="#"><span>{{username}}</span></a></li>
 		{{/users}}
+		<li>
+			<a id="user-add-button" href="#"><span title="Add user">+</span></a>
+			<form id="user-add-form" style="display: none;">
+				<input type="text" id="username" name="username"/>
+				<input type="submit" value="create" />
+			</form>
+		</li>
 	</script>
 	
 	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>

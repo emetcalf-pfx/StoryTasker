@@ -1,0 +1,2 @@
+Create service to handle validation and return error such as blank or duplicate.
+Inject UserDao.
