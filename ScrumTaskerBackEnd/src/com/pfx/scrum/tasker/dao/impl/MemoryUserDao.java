@@ -12,14 +12,15 @@ import com.pfx.scrum.tasker.model.User;
 
 public class MemoryUserDao implements UserDao {
 	private final Set<User> users = new HashSet<User>();
-	
+
 	@Override
 	public void createUser(User user) throws DuplicateUsernameException {
 		if (StringUtils.isEmpty(user.getUsername())) {
 			throw new IllegalArgumentException("User must have username.");
 		}
-		if (getUserByUsername(user.getUsername()).getUsername() != null ) {
-			throw new DuplicateUsernameException();
+		if (getUserByUsername(user.getUsername()).getUsername() != null) {
+			throw new DuplicateUsernameException(String.format(
+					"'%s' already exists.", user.getUsername()));
 		}
 		users.add(new User(user));
 	}
@@ -32,7 +33,7 @@ public class MemoryUserDao implements UserDao {
 		}
 		return Collections.unmodifiableSet(copyUsers);
 	}
-	
+
 	@Override
 	public User getUserByUsername(String username) {
 		for (User user : users) {

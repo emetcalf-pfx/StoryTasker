@@ -2,6 +2,7 @@ package com.pfx.story.tasker;
 
 import java.util.Set;
 
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -30,8 +31,9 @@ public class TaskerResource extends Application {
 	@POST
 	@Path("/users")
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@NotNull
 	public User createUser(User user) throws DuplicateUsernameException {
-		// TODO: Handle DuplicateUsernameException.
+		// TODO: Handle empty username - bean validation?
 		userDao.createUser(user);
 		return user;
 	}

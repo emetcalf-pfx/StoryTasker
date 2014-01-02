@@ -17,15 +17,16 @@ function createUser() {
 	$.ajax({
 		url : "http://localhost:8080/StoryTaskerServer/service/tasker/users",
 		contentType: "application/json",
-		datatype : "json",
+		dataType : "json",
 		data: JSON.stringify({username: $("#username").val()}),
 		type: "POST",
 		success : function(data) {
 			populateUserList();
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
-			/* TODO: Replace with better error. */
-			alert("error: " + textStatus + " " + errorThrown);
+			/* TODO: Replace with better UI error. */
+			alert($.parseJSON(jqXHR.responseText).message);
+			$("#username").select();
 		}
 	});
 }

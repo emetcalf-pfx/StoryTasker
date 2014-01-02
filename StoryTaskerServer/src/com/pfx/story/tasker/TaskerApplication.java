@@ -13,6 +13,7 @@ public class TaskerApplication extends Application {
 	public Set<Class<?>> getClasses() {
 		final Set<Class<?>> classes = new HashSet<Class<?>>();
 		classes.add(TaskerResource.class);
+		classes.add(DuplicateUsernameExceptionMapper.class);
 		return classes;
 	}
 
