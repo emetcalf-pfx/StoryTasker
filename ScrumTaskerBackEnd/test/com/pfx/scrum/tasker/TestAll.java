@@ -26,10 +26,10 @@ public class TestAll {
 	public void test() throws Exception {
 		User user1 = new User();
 		user1.setUsername("emetcalf");
-		userDao.createUser(user1);
+		int userId1 = userDao.createUser(user1);
 		User user2 = new User();
 		user2.setUsername("ccapper");
-		userDao.createUser(user2);
+		int userId2 = userDao.createUser(user2);
 		
 		Story story1 = new Story();
 		story1.setTitle("Story 1");
@@ -49,9 +49,9 @@ public class TestAll {
 			System.out.println("total hours: " + taskedStory.getTotalHours());
 		}
 		
-		story1.setUser(user2);
+		story1.setUserId(userId1);
 		storyDao.updateStory(story1);
-		story2.setUser(user1);
+		story2.setUserId(userId2);
 		storyDao.updateStory(story2);
 		
 		for (TaskedStory taskedStory : storyDao.getTaskedStories()) {
@@ -61,7 +61,7 @@ public class TestAll {
 		}
 		
 		Task story1Task1 = new Task();
-		story1Task1.setUser(story1.getUser());
+		story1Task1.setUserId(story1.getUserId());
 		story1Task1.setTitle("update design doc.");
 		story1Task1.setHours(6);
 		storyDao.addTask(story1.getId(), story1Task1);

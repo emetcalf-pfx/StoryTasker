@@ -11,7 +11,6 @@ import org.junit.Test;
 import com.pfx.scrum.tasker.model.Story;
 import com.pfx.scrum.tasker.model.Task;
 import com.pfx.scrum.tasker.model.TaskedStory;
-import com.pfx.scrum.tasker.model.User;
 
 public class MemoryStoryDaoTest {
 	private MemoryStoryDao classUnderTest;
@@ -52,7 +51,7 @@ public class MemoryStoryDaoTest {
 		story.setDescription("new description");
 		story.setPoints(8);
 		story.setTitle("new title");
-		story.setUser(new User());
+		story.setUserId(5);
 		classUnderTest.updateStory(story);
 		assertEquals(story, classUnderTest.getTaskedStory(id));
 	}
@@ -109,7 +108,7 @@ public class MemoryStoryDaoTest {
 		updateTask.setDescription("new description");
 		updateTask.setHours(9);
 		updateTask.setTitle("new title");
-		updateTask.setUser(new User());
+		updateTask.setUserId(5);
 		classUnderTest.updateTask(storyId, updateTask);
 		Set<Task> expectedTasks = new HashSet<Task>(1);
 		expectedTasks.add(updateTask);

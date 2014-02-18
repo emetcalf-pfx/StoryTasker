@@ -1,11 +1,12 @@
 package com.pfx.scrum.tasker.model;
 
 public class Task {
-	private Integer id;
+	private int id;
 	private String title;
 	private String description;
-	private Integer hours;
-	private User user;
+	private int hours = 0;
+	private Integer userId;
+	private int storyId;
 
 	/**
 	 * Default constructor.
@@ -23,14 +24,14 @@ public class Task {
 		this.title = task.title;
 		this.description = task.description;
 		this.hours = task.hours;
-		this.user = task.user;
+		this.userId = task.userId;
 	}
 
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -50,20 +51,28 @@ public class Task {
 		this.description = description;
 	}
 
-	public Integer getHours() {
+	public int getHours() {
 		return hours;
 	}
 
-	public void setHours(Integer hours) {
+	public void setHours(int hours) {
 		this.hours = hours;
 	}
 
-	public User getUser() {
-		return user;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public Integer getStoryId() {
+		return storyId;
+	}
+
+	public void setStoryId(Integer storyId) {
+		this.storyId = storyId;
 	}
 
 	@Override
@@ -72,9 +81,10 @@ public class Task {
 		int result = 1;
 		result = prime * result
 				+ ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((hours == null) ? 0 : hours.hashCode());
+		result = prime * result + hours;
+		result = prime * result + storyId;
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
 
@@ -92,20 +102,19 @@ public class Task {
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
-		if (hours == null) {
-			if (other.hours != null)
-				return false;
-		} else if (!hours.equals(other.hours))
+		if (hours != other.hours)
+			return false;
+		if (storyId != other.storyId)
 			return false;
 		if (title == null) {
 			if (other.title != null)
 				return false;
 		} else if (!title.equals(other.title))
 			return false;
-		if (user == null) {
-			if (other.user != null)
+		if (userId == null) {
+			if (other.userId != null)
 				return false;
-		} else if (!user.equals(other.user))
+		} else if (!userId.equals(other.userId))
 			return false;
 		return true;
 	}
@@ -113,7 +122,8 @@ public class Task {
 	@Override
 	public String toString() {
 		return "Task [id=" + id + ", title=" + title + ", description="
-				+ description + ", hours=" + hours + ", user=" + user + "]";
+				+ description + ", hours=" + hours + ", userId=" + userId
+				+ ", storyId=" + storyId + "]";
 	}
 
 }

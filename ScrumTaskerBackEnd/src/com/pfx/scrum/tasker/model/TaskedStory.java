@@ -38,7 +38,6 @@ public class TaskedStory extends Story {
 		return tasks.size();
 	}
 	
-	// TODO: Test.
 	public int getTotalHours() {
 		int hours = 0;
 		for (Task task : tasks) {

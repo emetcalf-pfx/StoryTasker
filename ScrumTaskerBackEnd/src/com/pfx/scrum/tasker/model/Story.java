@@ -1,11 +1,11 @@
 package com.pfx.scrum.tasker.model;
 
 public class Story {
-	private Integer id;
+	private int id;
 	private String title;
 	private String description;
-	private Integer points;
-	private User user;
+	private int points = 0;
+	private Integer userId;
 
 	/**
 	 * Default constructor.
@@ -23,14 +23,14 @@ public class Story {
 		this.title = story.title;
 		this.description = story.description;
 		this.points = story.points;
-		this.user = story.user;
+		this.userId = story.userId;
 	}
 
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -50,20 +50,20 @@ public class Story {
 		this.description = description;
 	}
 
-	public Integer getPoints() {
+	public int getPoints() {
 		return points;
 	}
 
-	public void setPoints(Integer points) {
+	public void setPoints(int points) {
 		this.points = points;
 	}
 
-	public User getUser() {
-		return user;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 	@Override
@@ -72,9 +72,9 @@ public class Story {
 		int result = 1;
 		result = prime * result
 				+ ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((points == null) ? 0 : points.hashCode());
+		result = prime * result + points;
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
 
@@ -92,20 +92,17 @@ public class Story {
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
-		if (points == null) {
-			if (other.points != null)
-				return false;
-		} else if (!points.equals(other.points))
+		if (points != other.points)
 			return false;
 		if (title == null) {
 			if (other.title != null)
 				return false;
 		} else if (!title.equals(other.title))
 			return false;
-		if (user == null) {
-			if (other.user != null)
+		if (userId == null) {
+			if (other.userId != null)
 				return false;
-		} else if (!user.equals(other.user))
+		} else if (!userId.equals(other.userId))
 			return false;
 		return true;
 	}
@@ -113,7 +110,8 @@ public class Story {
 	@Override
 	public String toString() {
 		return "Story [id=" + id + ", title=" + title + ", description="
-				+ description + ", points=" + points + ", user=" + user + "]";
+				+ description + ", points=" + points + ", userId=" + userId
+				+ "]";
 	}
 
 }

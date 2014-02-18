@@ -11,10 +11,11 @@ public interface UserDao {
 	 * Adds user.
 	 * 
 	 * @param user
+	 * @return Id of user.
 	 * @throws DuplicateUsernameException
 	 *             is user with same username already exists.
 	 */
-	void createUser(User user) throws DuplicateUsernameException;
+	int createUser(User user) throws DuplicateUsernameException;
 
 	/**
 	 * Returns users.

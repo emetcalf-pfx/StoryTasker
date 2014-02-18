@@ -73,7 +73,7 @@ public class MemoryStoryDao implements StoryDao {
 		savedTask.setDescription(task.getDescription());
 		savedTask.setHours(task.getHours());
 		savedTask.setTitle(task.getTitle());
-		savedTask.setUser(task.getUser());
+		savedTask.setUserId(task.getUserId());
 	}
 
 	private TaskedStory getStoryReference(int id) {

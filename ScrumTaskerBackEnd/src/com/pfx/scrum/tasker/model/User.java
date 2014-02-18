@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class User {
+	private int id;
 	private String username;
 
 	/**
@@ -18,9 +19,18 @@ public class User {
 	 * @param story
 	 */
 	public User(User user) {
-		this.username = user.username;
+		this.id = user.getId();
+		this.username = user.getUsername();
 	}
-	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getUsername() {
 		return username;
 	}
@@ -57,7 +67,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [username=" + username + "]";
+		return "User [id=" + id + ", username=" + username + "]";
 	}
 
 }

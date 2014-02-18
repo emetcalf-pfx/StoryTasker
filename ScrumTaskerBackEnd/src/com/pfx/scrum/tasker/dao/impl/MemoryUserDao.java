@@ -3,6 +3,7 @@ package com.pfx.scrum.tasker.dao.impl;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -11,10 +12,12 @@ import com.pfx.scrum.tasker.exception.DuplicateUsernameException;
 import com.pfx.scrum.tasker.model.User;
 
 public class MemoryUserDao implements UserDao {
+	private static AtomicInteger ID_GENERATOR = new AtomicInteger();
+	
 	private final Set<User> users = new HashSet<User>();
 
 	@Override
-	public void createUser(User user) throws DuplicateUsernameException {
+	public int createUser(User user) throws DuplicateUsernameException {
 		if (StringUtils.isEmpty(user.getUsername())) {
 			throw new IllegalArgumentException("User must have username.");
 		}
@@ -22,7 +25,11 @@ public class MemoryUserDao implements UserDao {
 			throw new DuplicateUsernameException(String.format(
 					"'%s' already exists.", user.getUsername()));
 		}
-		users.add(new User(user));
+		User newUser = new User(user);
+		int id = ID_GENERATOR.incrementAndGet();
+		newUser.setId(id);
+		users.add(newUser);
+		return id;
 	}
 
 	@Override
