@@ -31,7 +31,7 @@ public class TaskerResource extends Application {
 	@POST
 	@Path("/users")
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	@NotNull
+	@NotNull // TODO: Find out why NotNull is not working.
 	public User createUser(User user) throws DuplicateUsernameException {
 		// TODO: Handle empty username - bean validation?
 		userDao.createUser(user);
