@@ -1,10 +1,10 @@
 package com.pfx.scrum.tasker.model;
 
 public class Story {
-	private int id;
+	private Integer id;
 	private String title;
-	private String description;
-	private int points = 0;
+	private String description = "";
+	private int points;
 	private Integer userId;
 
 	/**
@@ -26,7 +26,7 @@ public class Story {
 		this.userId = story.userId;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
@@ -62,7 +62,7 @@ public class Story {
 		return userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 

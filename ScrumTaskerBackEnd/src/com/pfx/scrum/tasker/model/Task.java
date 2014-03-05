@@ -1,12 +1,12 @@
 package com.pfx.scrum.tasker.model;
 
 public class Task {
-	private int id;
+	private Integer id;
 	private String title;
-	private String description;
-	private int hours = 0;
+	private String description = "";
+	private int hours;
 	private Integer userId;
-	private int storyId;
+	private Integer storyId;
 
 	/**
 	 * Default constructor.
@@ -25,9 +25,10 @@ public class Task {
 		this.description = task.description;
 		this.hours = task.hours;
 		this.userId = task.userId;
+		this.storyId = task.storyId;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
@@ -59,11 +60,11 @@ public class Task {
 		this.hours = hours;
 	}
 
-	public int getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
@@ -71,7 +72,7 @@ public class Task {
 		return storyId;
 	}
 
-	public void setStoryId(Integer storyId) {
+	public void setStoryId(int storyId) {
 		this.storyId = storyId;
 	}
 
@@ -82,7 +83,7 @@ public class Task {
 		result = prime * result
 				+ ((description == null) ? 0 : description.hashCode());
 		result = prime * result + hours;
-		result = prime * result + storyId;
+		result = prime * result + ((storyId == null) ? 0 : storyId.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
@@ -104,7 +105,10 @@ public class Task {
 			return false;
 		if (hours != other.hours)
 			return false;
-		if (storyId != other.storyId)
+		if (storyId == null) {
+			if (other.storyId != null)
+				return false;
+		} else if (!storyId.equals(other.storyId))
 			return false;
 		if (title == null) {
 			if (other.title != null)

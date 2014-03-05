@@ -12,7 +12,7 @@ import com.pfx.scrum.tasker.exception.DuplicateUsernameException;
 import com.pfx.scrum.tasker.model.User;
 
 public class MemoryUserDao implements UserDao {
-	private static AtomicInteger ID_GENERATOR = new AtomicInteger();
+	private static final AtomicInteger ID_GENERATOR = new AtomicInteger();
 	
 	private final Set<User> users = new HashSet<User>();
 

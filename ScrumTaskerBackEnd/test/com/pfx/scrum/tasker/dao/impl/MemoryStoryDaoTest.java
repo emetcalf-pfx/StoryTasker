@@ -10,7 +10,6 @@ import org.junit.Test;
 
 import com.pfx.scrum.tasker.model.Story;
 import com.pfx.scrum.tasker.model.Task;
-import com.pfx.scrum.tasker.model.TaskedStory;
 
 public class MemoryStoryDaoTest {
 	private MemoryStoryDao classUnderTest;
@@ -32,28 +31,34 @@ public class MemoryStoryDaoTest {
 	}
 
 	@Test
-	public void testTaskedGetStory() {
-		TaskedStory story = new TaskedStory(getValidStory());
+	public void testGetStory() {
+		Story story = new Story(getValidStory());
 		int id = classUnderTest.createStory(story);
-		assertEquals(story, classUnderTest.getTaskedStory(id));
+		assertEquals(story, classUnderTest.getStory(id));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetStoryWithInvalidId() {
-		classUnderTest.getTaskedStory(0);
+		classUnderTest.getStory(0);
 	}
 
 	@Test
 	public void testUpdateEverytingInStory() {
 		Story story = getValidStory();
 		int id = classUnderTest.createStory(story);
-		story = classUnderTest.getTaskedStory(id);
+		story = classUnderTest.getStory(id);
 		story.setDescription("new description");
 		story.setPoints(8);
 		story.setTitle("new title");
 		story.setUserId(5);
 		classUnderTest.updateStory(story);
-		assertEquals(story, classUnderTest.getTaskedStory(id));
+		assertEquals(story, classUnderTest.getStory(id));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testUpdateStoryWithNullId() {
+		Story story = getValidStory();
+		classUnderTest.updateStory(story);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -65,14 +70,14 @@ public class MemoryStoryDaoTest {
 
 	@Test
 	public void testStoriesAreStored() {
-		Set<TaskedStory> expectedTaskedStories = new HashSet<TaskedStory>();
+		Set<Story> expectedStories = new HashSet<Story>();
 		Story story1 = getValidStory();
 		Story story2 = getValidStory();
-		expectedTaskedStories.add(new TaskedStory(story1));
-		expectedTaskedStories.add(new TaskedStory(story2));
+		expectedStories.add(new Story(story1));
+		expectedStories.add(new Story(story2));
 		classUnderTest.createStory(story1);
 		classUnderTest.createStory(story2);
-		assertEquals(expectedTaskedStories, classUnderTest.getTaskedStories());
+		assertEquals(expectedStories, classUnderTest.getStories());
 	}
 
 	@Test
@@ -80,14 +85,28 @@ public class MemoryStoryDaoTest {
 		Story story = getValidStory();
 		int storyId = classUnderTest.createStory(story);
 		Task task1 = getValidTask();
+		task1.setStoryId(storyId);
 		Task task2 = getValidTask();
-		classUnderTest.addTask(storyId, task1);
-		classUnderTest.addTask(storyId, task2);
+		task2.setStoryId(storyId);
+		classUnderTest.addTask(task1);
+		classUnderTest.addTask(task2);
 		Set<Task> expectedTasks = new HashSet<Task>();
 		expectedTasks.add(task1);
 		expectedTasks.add(task2);
-		assertEquals(expectedTasks, classUnderTest.getTaskedStory(storyId)
-				.getTasks());
+		assertEquals(expectedTasks, classUnderTest.getStoryTasks(storyId));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testAddTaskWithNoStoryId() {
+		Task task = getValidTask();
+		classUnderTest.addTask(task);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testAddTaskWithNoExistingStoryId() {
+		Task task = getValidTask();
+		task.setStoryId(1);
+		classUnderTest.addTask(task);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -95,35 +114,62 @@ public class MemoryStoryDaoTest {
 		Story story = getValidStory();
 		int storyId = classUnderTest.createStory(story);
 		Task task = new Task();
-		classUnderTest.addTask(storyId, task);
+		task.setStoryId(storyId);
+		classUnderTest.addTask(task);
 	}
 
 	@Test
 	public void testUpdateTask() {
 		Story story = getValidStory();
 		int storyId = classUnderTest.createStory(story);
-		int taskId = classUnderTest.addTask(storyId, getValidTask());
+		Task task = getValidTask();
+		task.setStoryId(storyId);
+		int taskId = classUnderTest.addTask(task);
 		Task updateTask = new Task();
 		updateTask.setId(taskId);
 		updateTask.setDescription("new description");
 		updateTask.setHours(9);
 		updateTask.setTitle("new title");
 		updateTask.setUserId(5);
-		classUnderTest.updateTask(storyId, updateTask);
+		updateTask.setStoryId(storyId);
+		classUnderTest.updateTask(updateTask);
 		Set<Task> expectedTasks = new HashSet<Task>(1);
 		expectedTasks.add(updateTask);
-		assertEquals(expectedTasks, classUnderTest.getTaskedStory(storyId)
-				.getTasks());
+		assertEquals(expectedTasks, classUnderTest.getStoryTasks(storyId));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testUpdateTaskWithNullId() {
+		Story story = getValidStory();
+		int storyId = classUnderTest.createStory(story);
+		Task task = getValidTask();
+		task.setStoryId(storyId);
+		classUnderTest.addTask(task);
+		Task updateTask = new Task(task);
+		classUnderTest.updateTask(updateTask);
 	}
 	
+	@Test(expected = IllegalArgumentException.class)
+	public void testUpdateTaskWithNullStoryId() {
+		Story story = getValidStory();
+		int storyId = classUnderTest.createStory(story);
+		Task task = getValidTask();
+		task.setStoryId(storyId);
+		int taskId = classUnderTest.addTask(task);
+		Task updateTask = getValidTask();
+		updateTask.setId(taskId);
+		classUnderTest.updateTask(updateTask);
+	}
+
 	@Test(expected = IllegalArgumentException.class)
 	public void testUpdateTaskWithInvalidId() {
 		Story story = getValidStory();
 		int storyId = classUnderTest.createStory(story);
-		int taskId = classUnderTest.addTask(storyId, getValidTask());
-		Task updateTask = new Task();
-		updateTask.setId(taskId + 1);
-		classUnderTest.updateTask(storyId, updateTask);
+		Task task = getValidTask();
+		task.setStoryId(storyId);
+		int taskId = classUnderTest.addTask(task);
+		task.setId(taskId + 1);
+		classUnderTest.updateTask(task);
 	}
 
 	private Story getValidStory() {
